@@ -9,7 +9,7 @@ from os.path import join
 
 
 possibleTestDirs = "CZE", "sample/CZE", "progtest", "tests", "test-data"
-possibleArchives = "sample.tgz", "progtest.tar", "tests.tgz", "test-data.tgz"
+possibleArchives = "sample.tgz", "sample.tar", "progtest.tar", "progtest.tgz", "tests.tgz", "test-data.tgz"
 
 
 class TestCommand(sublime_plugin.ApplicationCommand):
