@@ -8,8 +8,8 @@ from sys import exit
 from os.path import join
 
 
-possibleTestDirs = "CZE", "sample/CZE", "tests", "test-data"
-possibleArchives = "sample.tgz", "tests.tgz", "test-data.tgz"
+possibleTestDirs = "CZE", "sample/CZE", "progtest", "tests", "test-data"
+possibleArchives = "sample.tgz", "progtest.tar", "tests.tgz", "test-data.tgz"
 
 
 class TestCommand(sublime_plugin.ApplicationCommand):
@@ -94,6 +94,7 @@ class TestCommand(sublime_plugin.ApplicationCommand):
         tar.extractall(target)
         tar.close()
 
+        self.testDir(target)
         for d in self.dirDiscovery(target):
             self.testDir(d)
 
