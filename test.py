@@ -112,7 +112,7 @@ class TestCommand(sublime_plugin.ApplicationCommand):
         files = filter(lambda f: not ("win" in f or "tmp" in f or f.startswith(".")), files)
 
         # for each test file
-        for i, f in enumerate(files):
+        for f in files:
 
             # num of the test
             num = f[:4]
@@ -124,9 +124,7 @@ class TestCommand(sublime_plugin.ApplicationCommand):
                 continue
 
             if not self.testFile(testDir, num):
-                skipped = len(list(files))/2-i-1
-                if skipped:
-                    self.log("Skipping next %d tests in the same directory." % skipped)
+                self.log("Skipping next tests in the same directory (if any).")
                 return False
 
         return True
