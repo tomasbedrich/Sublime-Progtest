@@ -1,0 +1,13 @@
+[
+    {
+        "caption": "Tools",
+        "mnemonic": "T",
+        "id": "tools",
+        "children":
+        [
+            { "caption": "-"},
+            { "command": "test", "mnemonic": "T"}
+
+        ]
+    }
+]
