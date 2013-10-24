@@ -2,24 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>fileTypes</key>
-	<array>
-		<string>c</string>
-		<string>h</string>
-	</array>
-	<key>firstLineMatch</key>
-	<string>-[*]-( Mode:)? C -[*]-</string>
-	<key>foldingStartMarker</key>
-	<string>(?x)
-		 /\*\*(?!\*)
-		|^(?![^{]*?//|[^{]*?/\*(?!.*?\*/.*?\{)).*?\{\s*($|//|/\*(?!.*?\*/.*\S))
-	</string>
-	<key>foldingStopMarker</key>
-	<string>(?&lt;!\*)\*\*/|^\s*\}</string>
-	<key>keyEquivalent</key>
-	<string>^~C</string>
 	<key>name</key>
-	<string>C</string>
+	<string>Progtest</string>
 	<key>patterns</key>
 	<array>
 		<dict>
