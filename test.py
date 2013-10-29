@@ -1,3 +1,6 @@
+if __name__ == '__main__':
+    exit(0)
+
 import sublime, sublime_plugin
 import subprocess
 import tarfile
@@ -108,6 +111,8 @@ class TestCommand(sublime_plugin.ApplicationCommand):
 
         dir_name, sub_dirs, files = [v for v in os.walk(testDir)][0]
         alreadyTested = set()
+        passed = 0
+        failed = 0
         
         # skip unwanted files
         files = filter(lambda f: not ("win" in f or "tmp" in f or f.startswith(".")), files)
@@ -124,10 +129,17 @@ class TestCommand(sublime_plugin.ApplicationCommand):
             else:
                 continue
 
-            if not self.testFile(testDir, num):
-                self.log("Skipping next tests in the same directory (if any).")
-                return False
+            if self.testFile(testDir, num):
+                passed += 1
+            else:
+                failed += 1
 
+            # TODO: add settings for this
+            # if not self.testFile(testDir, num):
+            #     self.log("Skipping next tests in the same directory (if any).")
+            #     return False
+
+        self.log("Passed: %d, Failed: %d, Total: %d" % (passed, failed, passed + failed) )
         return True
 
     def testFile(self, testDir, num):
@@ -143,7 +155,7 @@ class TestCommand(sublime_plugin.ApplicationCommand):
         try:
             subprocess.check_output(run, shell=True)
         except subprocess.CalledProcessError as e:
-            self.log("Test %s has exit status: %d" % (num, e.returncode))
+            self.log("Warning: Test %s has exit status: %d" % (num, e.returncode))
 
         # diff output
         diff = "diff '%(out)s' '%(tmpOut)s'" % {"out": outFile, "tmpOut": tmpOutFile}
