@@ -29,6 +29,7 @@ class TestCommand(sublime_plugin.ApplicationCommand):
             self.output.run_command("select_all")
             self.output.run_command("right_delete")
             _getWin().run_command("show_panel", {"panel": "output.test"})
+            self.output.set_syntax_file("Packages/Sublime-Progtest/Progtest.tmLanguage")
         self.output.run_command("insert", {"characters": data+"\n"})
 
     def logHr(self, char="-"):
