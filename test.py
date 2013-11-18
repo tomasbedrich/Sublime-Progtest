@@ -152,23 +152,26 @@ class TestCommand(sublime_plugin.ApplicationCommand):
         tmpOutFile = join(testDir, "%s_tmp_out.txt" % num)
 
         # run program
-        run = "'%(exe)s' < '%(in)s' > '%(tmpOut)s'" % {"exe": exe, "in": inFile, "tmpOut": tmpOutFile}
+        run = "'%(exe)s' < '%(in)s' &> '%(tmpOut)s'" % {"exe": exe, "in": inFile, "tmpOut": tmpOutFile}
         try:
             subprocess.check_output(run, shell=True)
         except subprocess.CalledProcessError as e:
-            self.log("Warning: Test %s has exit status: %d" % (num, e.returncode))
+            if e.returncode is 139:
+                self.log("ERROR: Test %s ended with 'Segmentation fault'." % num)
+            else:
+                self.log("WARNING: Test %s has exit status: %d" % (num, e.returncode))
 
         # diff output
         diff = "diff '%(out)s' '%(tmpOut)s'" % {"out": outFile, "tmpOut": tmpOutFile}
         try:
             subprocess.check_output(diff, shell=True)
         except subprocess.CalledProcessError as e:
-            self.log("Error: Test %s failed." % num)
+            self.log("ERROR: Test %s failed." % num)
             self.log(str(e.output, "utf-8").strip())
             self.logHr()
             return False
 
-        self.log("Success: Test %s passed." % num)
+        self.log("SUCCESS: Test %s passed." % num)
         self.logHr()
         return True
 

@@ -24,7 +24,7 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\b(Error|error)\b</string>
+			<string>\b(Error|error|ERROR)\b</string>
 			<key>name</key>
 			<string>keyword.control.c</string>
 		</dict>
